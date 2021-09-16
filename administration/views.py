@@ -4,27 +4,27 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-import student
-import teacher
-import employee
-import academic
+# import student
+# import teacher
+# import employee
+# import academic
 
 from teacher.models import Department, Designation
 from .forms import *
 
-@login_required(login_url='login')
-def home_page(request):
-    total_student = student.models.AcademicInfo.objects.count()
-    total_teacher= teacher.models.PersonalInfo.objects.count()
-    total_employee = employee.models.PersonalInfo.objects.count()
-    total_class = academic.models.ClassRegistration.objects.count()
-    context = {
-        'student': total_student,
-        'teacher': total_teacher,
-        'employee': total_employee,
-        'total_class': total_class,
-    }
-    return render(request, 'administration/home_page.html', context)
+# @login_required(login_url='login')
+# def home_page(request):
+#     total_student = student.models.AcademicInfo.objects.count()
+#     total_teacher= teacher.models.PersonalInfo.objects.count()
+#     total_employee = employee.models.PersonalInfo.objects.count()
+#     total_class = academic.models.ClassRegistration.objects.count()
+#     context = {
+#         'student': total_student,
+#         'teacher': total_teacher,
+#         'employee': total_employee,
+#         'total_class': total_class,
+#     }
+#     return render(request, 'administration/home_page.html', context)
 
 
 def admin_login(request):
@@ -37,13 +37,13 @@ def admin_login(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                return redirect('home_page')
+                return redirect('home')
     context = {'forms': forms}
     return render(request, 'administration/login.html', context)
 
 def admin_logout(request):
     logout(request)
-    return redirect('home_page')
+    return redirect('home')
 
 
 def add_designation(request):
